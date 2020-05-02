@@ -1,9 +1,9 @@
 <section class="px-6 py-4 mx-auto">
-  <%= simple_form_for [@application, @contact || @application.contacts.build], defaults: { input_html: { class: 'form-input mt-1 font-sans' }, wrapper_html: { class: 'flex flex-col my-4' }, label_html: { class: 'mb-1' } } do |f| %>
+    <%= simple_form_for [@application, @contact || @application.contacts.build], defaults: { input_html: { class: 'form-input mt-1 font-sans' }, wrapper_html: { class: 'flex flex-col my-4' }, label_html: { class: 'mb-1' } } do |f| %>
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
     <div class="mt-4 text-xl font-semibold">
-      A. Basic Details
+        A. Basic Details
     </div>
 
     <%= f.input :name, required: true %>
@@ -16,30 +16,35 @@
     <%#= f.input :tracking_type, input_html: { class: 'form-select' } %>
     <!--    </div>-->
     <div>
-      <hr class="pb-4"/>
-      <%= f.input :house_name, required: true %>
-      <%#= f.input :number_of_family_members %>
-      <%= f.input :ward, required: true %>
-      <%#= f.input :landmark %>
-      <%= f.association :panchayat, collection: Panchayat.all(), input_html: { class: 'form-select', id: 'dropdown-choice-select' }, required: true %>
+        <hr class="pb-4" />
+        <%= f.input :house_name, required: true %>
+        <%#= f.input :number_of_family_members %>
+        <%= f.input :ward, required: true %>
+        <%#= f.input :landmark %>
+        <%= f.association :panchayat, collection: Panchayat.all(), input_html: { class: 'form-select', id: 'dropdown-choice-select' }, required: true %>
     </div>
     <div class="mt-4 text-xl font-semibold">
-      B. Self Declaration
+        B. Self Declaration
     </div>
     <div>
-      <%= f.input :symptoms, label: 'Do you have any symptoms of COVID-19' %>
-      <%= f.input :has_diabetes, label: 'Do you have diabetes?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
-      <%= f.input :has_hyper_tension, label: 'Do you have hyper tension?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
-      <%= f.input :has_heart_disease, label: 'Do you have heart disease?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
-      <%= f.input :has_kidney_disease, label: 'Do you have kidney disease?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
-      <%= f.input :primary_contact, label: 'Have you had Contact with any COVID positive patient?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
-      <%= f.input :was_positive, label: 'Were you a covid patient?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
-      <%= f.input :is_pregnant, label: 'Are you pregnant (optional)', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons %>
-      <%= f.input :test_type, label: 'Enter your covid test details' %>
-      <%= f.input :recent_history, label: 'Do you have any recent medical history' %>
+        <%= f.input :symptoms, label: 'Do you have any symptoms of COVID-19' %>
+        <%= f.input :has_diabetes, label: 'Do you have diabetes?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
+        <%= f.input :has_hyper_tension, label: 'Do you have hyper tension?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
+        <%= f.input :has_heart_disease, label: 'Do you have heart disease?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
+        <%= f.input :has_kidney_disease, label: 'Do you have kidney disease?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
+        <%= f.input :primary_contact, label: 'Have you had Contact with any COVID positive patient?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
+        <%= f.input :was_positive, label: 'Were you a covid patient?', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons, required: true %>
+        <%= f.input :is_pregnant, label: 'Are you pregnant (optional)', input_html: { class: "form-radio mr-2" }, collection: [['Yes', true], ['No', false]], as: :radio_buttons %>
+        <%= f.input :test_type, label: 'Enter your covid test details' %>
+        <%= f.input :recent_history, label: 'Do you have any recent medical history' %>
+
+        <%= f.input :aarogya_setu_downloaded, input_html: {class: 'form-checkbox'} %>
+        <%= f.input :doctor_certificate, input_html: {class: 'form-checkbox'}%>
+        <%= f.input :doctor_name %>
+
     </div>
     <span class="inline-flex rounded-md shadow-sm">
         <%= f.button :submit, 'Submit Changes', 'data-turbolinks-scroll': false, class: 'mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:border-gray-700 focus:shadow-outline-indigo active:bg-gray-700 transition ease-in-out duration-150' %>
     </span>
-  <% end %>
+    <% end %>
 </section>

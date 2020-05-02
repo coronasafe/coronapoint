@@ -1,234 +1,177 @@
 <div class="max-w-3xl mx-auto">
-  <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 shadow rounded-lg">
-    <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
-      <div class="ml-4 mt-2 flex items-center">
-        <h1 class="text-3xl font-medium text-gray-900 mr-2">
-          Application <%= @application.id %>
-        </h1>
-        <span class="text-sm bg-gray-300 px-4 py-1 rounded border">
-           <%= link_to 'Edit', edit_application_path(@application) %>
-         </span>
-      </div>
-      <div class="ml-4 mt-2 flex-shrink-0">
-        <span class="inline-flex rounded-md shadow-sm">
-            <span class="bg-orange-200 text-orange-700 px-4 py-1 rounded border border-orange-700">
-                Pending
-            </span>
-        </span>
-      </div>
-    </div>
-    <div class="px-4 py-5 sm:px-6">
-      <dl class="grid grid-cols-1 col-gap-4 row-gap-8 sm:grid-cols-2">
-        <div class="sm:col-span-1">
-          <dt class="text-sm leading-5 font-medium text-gray-500">
-            Port of Departure
-          </dt>
-          <dd class="mt-1 text-sm leading-5 text-gray-900">
-            <%= @application.port_of_departure.presence || 'Yet to be updated' %>
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm leading-5 font-medium text-gray-500">
-            Port of Arrival
-          </dt>
-          <dd class="mt-1 text-sm leading-5 text-gray-900">
-            <%= @application.port&.name&.presence || 'Yet to be updated' %>
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm leading-5 font-medium text-gray-500">
-            Arrival On
-          </dt>
-          <dd class="mt-1 text-sm leading-5 text-gray-900">
-            <%= @application.arrival_on&.strftime("%m/%d/%Y at %I:%M%p") || 'Yet to be updated' %>
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm leading-5 font-medium text-gray-500">
-            Flight Number
-          </dt>
-          <dd class="mt-1 text-sm leading-5 text-gray-900">
-            <%= @application.flight_number || 'Yet to be updated' %>
-          </dd>
-        </div>
-      </dl>
-    </div>
-  </div>
-
-  <div class="mt-4 flex">
-    <div class="py-6 px-4 text-3xl font-bold">
-      1
-    </div>
-    <div class="bg-white shadow overflow-hidden sm:rounded-md w-full">
-      <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded-t-lg">
+    <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 shadow rounded-lg">
         <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
-          <div class="ml-4 mt-2">
-            <h1 class="text-3xl font-medium text-gray-900">
-              Add Traveller Details
-            </h1>
-            <div>
-              You can enter the details of people travelling along with you.
+            <div class="ml-4 mt-2 flex items-center">
+                <h1 class="text-3xl font-medium text-gray-900 mr-2">
+                    Application <%= @application.id %>
+                </h1>
+                <span class="text-sm bg-gray-300 px-4 py-1 rounded border">
+                    <%= link_to 'Edit', edit_application_path(@application) %>
+                </span>
             </div>
-          </div>
+            <div class="ml-4 mt-2 flex-shrink-0">
+                <span class="inline-flex rounded-md shadow-sm">
+                    <span class="bg-orange-200 text-orange-700 px-4 py-1 rounded border border-orange-700">
+                        Pending
+                    </span>
+                </span>
+            </div>
         </div>
-      </div>
-      <ul>
-        <% @application.contacts.map do |c| %>
-          <li class="border-t border-gray-200">
-            <%= link_to application_contact_path(@application, c), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
-              <div class="flex items-center px-4 py-4 sm:px-6">
-                <div class="min-w-0 flex-1 flex items-center">
-                  <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                    <div>
-                      <div class="text-sm leading-5 font-medium text-indigo-600 truncate"><%= c.name.titleize %></div>
-                      <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
-                        <span class="truncate"><%= c.phone %></span>
-                      </div>
-                    </div>
-                    <div class="hidden md:block">
-                      <div>
-                        <div class="text-sm leading-5 text-gray-900">
-                          Applied on
-                          <%= c.created_at.strftime("%m/%d/%Y at %I:%M%p") %>
-                        </div>
-                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
 
-                          <i class="fas fa-check-circle text-green-500 mr-1"></i>
-                          Completed
+        <div class="mt-8 max-w-xl mx-auto">
+            <%= simple_form_for @application, defaults: { input_html: { class: 'form-input input-text mt-1 font-sans', readonly: true }, wrapper_html: { class: 'flex flex-col my-4 max-w-xl mx-auto' }, label_html: { class: 'label' } } do |f| %>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-                          <!--                            <i class="fas fa-times-circle text-red-500 mr-1"></i>-->
-                          <!--                            Please Fill up the health details-->
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-              </div>
+            <%= f.input :full_name %>
+            <%= f.input :address %>
+            <%= f.input :phone %>
+            <%= f.input :aadhar %>
+            <%= f.input :quaratine_is_over, input_html: {class: 'form-checkbox'} %>
+            <%= f.input :when_quarantine_over %>
+            <%= f.input :date_of_medical_exam %>
+            <%= f.input :disease_remarks %>
+            <%= f.input :route %>
+            <%= f.input :purpose_of_trip %>
+            <%= f.input :total_persons %>
             <% end %>
-          </li>
-        <% end %>
-        <li class="border-t border-gray-200">
-          <%= link_to new_application_contact_path(@application), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
-            <div class="flex items-center px-4 py-4 sm:px-6">
-              <div class="min-w-0 flex-1 flex items-center">
-                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                  + Add a new passenger
-                </div>
-              </div>
-              <div>
-                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-            </div>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="mt-4 flex">
-    <div class="py-6 px-4 text-3xl font-bold">
-      2
-    </div>
-    <div class="bg-white shadow overflow-hidden sm:rounded-md w-full">
-      <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded-t-lg">
-        <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
-          <div class="ml-4 mt-2">
-            <h1 class="text-3xl font-medium text-gray-900">
-              Enter House Details
-            </h1>
-            <div>
-              Add your house details
-            </div>
-          </div>
         </div>
-      </div>
-      <ul>
-
-        <% @application.houses.each do |house| %>
-          <li class="border-t border-gray-200">
-            <%= render 'house', house: house %>
-          </li>
-        <% end %>
-        <li class="border-t border-gray-200">
-          <%= link_to confirm_application_houses_path(@application), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
-            <div class="flex items-center px-4 py-4 sm:px-6">
-              <div class="min-w-0 flex-1 flex items-center">
-                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                  + Add New House
-                </div>
-              </div>
+        <div class="mt-4 flex">
+            <div class="py-6 px-4 text-3xl font-bold">
+                1
             </div>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="mt-4 flex">
-    <div class="py-6 px-4 text-3xl font-bold">
-      3
-    </div>
-    <div class="bg-white shadow overflow-hidden sm:rounded-md w-full">
-      <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded-t-lg">
-        <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
-          <div class="ml-4 mt-2">
-            <h1 class="text-3xl font-medium text-gray-900">
-              Enter Vehicle Details
-            </h1>
-            <div>
-              You will only be allowed to travel with vehicle pass issued by us on mainland Kerala
-            </div>
-          </div>
-        </div>
-      </div>
-      <ul>
-        <% @application.vehicles.each do |vehicle| %>
-          <li class="border-t border-gray-200">
-            <%= link_to edit_application_vehicle_path(@application, vehicle), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
-              <div href="#" class="block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out">
-                <div class="flex items-center px-4 py-4 sm:px-6">
-                  <div class="min-w-0 flex-1 flex items-center">
-                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-3 md:gap-2">
-                      <div>
-                        <div class="text-sm leading-5 font-medium text-indigo-600 truncate"><%= vehicle.number_plate %></div>
-                      </div>
-
-                      <div>
-                        <div class="text-sm leading-5 text-gray-900">
-                          <%= vehicle.seats&.titleize %> seater
+            <div class="bg-white shadow overflow-hidden sm:rounded-md w-full">
+                <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded-t-lg">
+                    <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
+                        <div class="ml-4 mt-2">
+                            <h1 class="text-3xl font-medium text-gray-900">
+                                Add Traveller Details
+                            </h1>
+                            <div>
+                                You can enter the details of people travelling along with you.
+                            </div>
                         </div>
-                      </div>
-                      <div class="flex mx-auto">
-                        <div class="text-sm flex px-4 bg-orange-200 rounded-lg items-center py-1 font-semibold">
-                          <sapn>Edit</sapn>
-                          <i class="fas fa-pencil-alt ml-2"></i>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-            <% end %>
-        <% end %>
-        <li class="border-t border-gray-200">
-          <%= link_to new_application_vehicle_path(@application), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
+                <ul>
+                    <% @application.contacts.map do |c| %>
+                    <li class="border-t border-gray-200">
+                        <%= link_to application_contact_path(@application, c), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
+                        <div class="flex items-center px-4 py-4 sm:px-6">
+                            <div class="min-w-0 flex-1 flex items-center">
+                                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                    <div>
+                                        <div class="text-sm leading-5 font-medium text-indigo-600 truncate"><%= c.name.titleize %></div>
+                                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                                            <span class="truncate"><%= c.phone %></span>
+                                        </div>
+                                    </div>
+                                    <div class="hidden md:block">
+                                        <div>
+                                            <div class="text-sm leading-5 text-gray-900">
+                                                Applied on
+                                                <%= c.created_at.strftime("%m/%d/%Y at %I:%M%p") %>
+                                            </div>
+                                            <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
 
-            <div class="flex items-center px-4 py-4 sm:px-6">
-              <div class="min-w-0 flex-1 flex items-center">
-                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                  + Add new vehicle
-                </div>
-              </div>
+                                                <i class="fas fa-check-circle text-green-500 mr-1"></i>
+                                                Completed
+
+                                                <!--                            <i class="fas fa-times-circle text-red-500 mr-1"></i>-->
+                                                <!--                            Please Fill up the health details-->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <% end %>
+                    </li>
+                    <% end %>
+                    <li class="border-t border-gray-200">
+                        <%= link_to new_application_contact_path(@application), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
+                        <div class="flex items-center px-4 py-4 sm:px-6">
+                            <div class="min-w-0 flex-1 flex items-center">
+                                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                    + Add a new passenger
+                                </div>
+                            </div>
+                            <div>
+                                <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <% end %>
+                    </li>
+                </ul>
             </div>
-          <% end %>
-        </li>
-      </ul>
+        </div>
+        <div class="mt-4 flex">
+            <div class="py-6 px-4 text-3xl font-bold">
+                3
+            </div>
+            <div class="bg-white shadow overflow-hidden sm:rounded-md w-full">
+                <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded-t-lg">
+                    <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
+                        <div class="ml-4 mt-2">
+                            <h1 class="text-3xl font-medium text-gray-900">
+                                Enter Vehicle Details
+                            </h1>
+                            <div>
+                                You will only be allowed to travel with vehicle pass issued by us on mainland Kerala
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul>
+                    <% @application.vehicles.each do |vehicle| %>
+                    <li class="border-t border-gray-200">
+                        <%= link_to edit_application_vehicle_path(@application, vehicle), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
+                        <div href="#" class="block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out">
+                            <div class="flex items-center px-4 py-4 sm:px-6">
+                                <div class="min-w-0 flex-1 flex items-center">
+                                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-3 md:gap-2">
+                                        <div>
+                                            <div class="text-sm leading-5 font-medium text-indigo-600 truncate"><%= vehicle.number_plate %></div>
+                                        </div>
+
+                                        <div>
+                                            <div class="text-sm leading-5 text-gray-900">
+                                                <%= vehicle.seats&.titleize %> seater
+                                            </div>
+                                        </div>
+                                        <div class="flex mx-auto">
+                                            <div class="text-sm flex px-4 bg-orange-200 rounded-lg items-center py-1 font-semibold">
+                                                <sapn>Edit</sapn>
+                                                <i class="fas fa-pencil-alt ml-2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% end %>
+                        <% end %>
+                    <li class="border-t border-gray-200">
+                        <%= link_to new_application_vehicle_path(@application), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
+
+                        <div class="flex items-center px-4 py-4 sm:px-6">
+                            <div class="min-w-0 flex-1 flex items-center">
+                                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                    + Add new vehicle
+                                </div>
+                            </div>
+                        </div>
+                        <% end %>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-</div>

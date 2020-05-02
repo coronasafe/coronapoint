@@ -4,5 +4,4 @@ class Application < ApplicationRecord
   has_many :houses
   has_many :vehicles
   has_many :contacts
-  belongs_to :port
 end

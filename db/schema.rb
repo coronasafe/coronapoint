@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_27_114943) do
+ActiveRecord::Schema.define(version: 2020_05_02_070155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,20 @@ ActiveRecord::Schema.define(version: 2020_04_27_114943) do
     t.string "alternate_contact"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "full_name"
+    t.string "address"
+    t.string "phone"
+    t.string "aadhar"
+    t.boolean "quaratine_is_over"
+    t.date "when_quarantine_over"
+    t.date "date_of_medical_exam"
+    t.string "disease_remarks"
+    t.string "route"
+    t.string "purpose_of_trip"
+    t.string "type_of_vehicle"
+    t.integer "number_of_vehicles"
+    t.string "private_vehicle_details"
+    t.integer "total_persons"
     t.index ["port_id"], name: "index_applications_on_port_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
@@ -70,6 +84,9 @@ ActiveRecord::Schema.define(version: 2020_04_27_114943) do
     t.boolean "has_tested"
     t.boolean "was_positive"
     t.string "test_type"
+    t.boolean "aarogya_setu_downloaded"
+    t.boolean "doctor_certificate"
+    t.string "doctor_name"
     t.index ["application_id"], name: "index_contacts_on_application_id"
     t.index ["panchayat_id"], name: "index_contacts_on_panchayat_id"
     t.index ["phone"], name: "index_contacts_on_phone", unique: true
