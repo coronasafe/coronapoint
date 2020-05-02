@@ -91,7 +91,10 @@ class ContactsController < ApplicationController
       :primary_contact,
       :has_tested,
       :was_positive,
-      :test_type
+      :test_type,
+       :aarogya_setu_downloaded,
+       :doctor_certificate,
+      :doctor_name
     )
   end
 end
