@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="mt-4 flex">
+        <div class="mt-8 max-w-xl mx-auto">
             <%= simple_form_for @application, defaults: { input_html: { class: 'form-input input-text mt-1 font-sans', readonly: true }, wrapper_html: { class: 'flex flex-col my-4 max-w-xl mx-auto' }, label_html: { class: 'label' } } do |f| %>
             <%= f.error_notification %>
             <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -33,9 +33,6 @@
             <%= f.input :disease_remarks %>
             <%= f.input :route %>
             <%= f.input :purpose_of_trip %>
-            <%= f.input :type_of_vehicle %>
-            <%= f.input :number_of_vehicles %>
-            <%= f.input :private_vehicle_details %>
             <%= f.input :total_persons %>
             <% end %>
         </div>
@@ -109,44 +106,6 @@
                                 <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
                                 </svg>
-                            </div>
-                        </div>
-                        <% end %>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="mt-4 flex">
-            <div class="py-6 px-4 text-3xl font-bold">
-                2
-            </div>
-            <div class="bg-white shadow overflow-hidden sm:rounded-md w-full">
-                <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6 rounded-t-lg">
-                    <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
-                        <div class="ml-4 mt-2">
-                            <h1 class="text-3xl font-medium text-gray-900">
-                                Enter House Details
-                            </h1>
-                            <div>
-                                Add your house details
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <ul>
-
-                    <% @application.houses.each do |house| %>
-                    <li class="border-t border-gray-200">
-                        <%= render 'house', house: house %>
-                    </li>
-                    <% end %>
-                    <li class="border-t border-gray-200">
-                        <%= link_to confirm_application_houses_path(@application), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
-                        <div class="flex items-center px-4 py-4 sm:px-6">
-                            <div class="min-w-0 flex-1 flex items-center">
-                                <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                                    + Add New House
-                                </div>
                             </div>
                         </div>
                         <% end %>
