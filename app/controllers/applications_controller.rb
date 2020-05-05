@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :set_application, only: [:show, :edit, :update]
+  before_action :set_application, only: [:show, :edit, :update, :summary]
 
   def index
     @applications = current_user&.applications
@@ -12,6 +12,10 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+  end
+
+  def summary
+
   end
 
   def new
@@ -57,16 +61,16 @@ class ApplicationsController < ApplicationController
       :address,
       :phone,
       :aadhar,
-       :quaratine_is_over,
-       :when_quarantine_over,
-       :date_of_medical_exam,
+      :quaratine_is_over,
+      :when_quarantine_over,
+      :date_of_medical_exam,
       :disease_remarks,
       :route,
       :purpose_of_trip,
       :type_of_vehicle,
-       :number_of_vehicles,
+      :number_of_vehicles,
       :private_vehicle_details,
-       :total_persons,
+      :total_persons,
     )
   end
 end

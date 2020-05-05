@@ -9,10 +9,10 @@
           <h2 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
             Welcome to
             <br class="xl:hidden"/>
-            <span class="text-indigo-600">Kerala</span>
+            <span class="text-indigo-600">Point</span>
           </h2>
           <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            You have to register and complete all the steps for travelling to Kerala.
+            You have to register and complete all the steps for travelling interstate
           </p>
           <% if current_user.present? %>
             <% if @applications.present? %>
@@ -33,43 +33,22 @@
                   </span>
                       </div>
                     </div>
-                    <div class="px-4 py-5 sm:px-6">
-                      <dl class="grid grid-cols-1 col-gap-4 row-gap-8 sm:grid-cols-2">
-                        <div class="sm:col-span-1">
-                          <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Port of Departure
-                          </dt>
-                          <dd class="mt-1 text-sm leading-5 text-gray-900">
-                            <%= app.port_of_departure.presence || 'Yet to be updated' %>
-                          </dd>
-                        </div>
-                        <div class="sm:col-span-1">
-                          <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Port of Arrival
-                          </dt>
-                          <dd class="mt-1 text-sm leading-5 text-gray-900">
-                            <%= app.port&.name&.presence || 'Yet to be updated' %>
-                          </dd>
-                        </div>
-                        <div class="sm:col-span-1">
-                          <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Arrival On
-                          </dt>
-                          <dd class="mt-1 text-sm leading-5 text-gray-900">
-                            <%= app.arrival_on&.strftime("%m/%d/%Y at %I:%M%p") || 'Yet to be updated' %>
-                          </dd>
-                        </div>
-                        <div class="sm:col-span-1">
-                          <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Flight Number
-                          </dt>
-                          <dd class="mt-1 text-sm leading-5 text-gray-900">
-                            <%= app.flight_number || 'Yet to be updated' %>
-                          </dd>
-                        </div>
-                      </dl>
+                    <div class="mt-4 flex items-center mx-auto p-4 md:p-10 w-full justify-center">
+                      <%
+                        qrcode = RQRCode::QRCode.new("#{summary_application_url(app)}")
+                        # With default options specified explicitly
+                        svg = qrcode.as_svg(offset: 0, color: '000',
+                          shape_rendering: 'crispEdges',
+                          module_size: 6,
+                          standalone: true)
+                      %>
+
+                      <%= raw svg %>
                     </div>
-                    <div class="bg-blue-200 hover:bg-blue-400 py-2 shadow rounded-lg border font-bold text-gray-900">
+                    <div class="text-xl font-semibold">
+                      <%= app.full_name %>
+                    </div>
+                    <div class="bg-blue-200 hover:bg-blue-400 py-2 shadow rounded-lg border font-bold text-gray-900 mt-4">
                       View Application Details
                     </div>
                   </div>

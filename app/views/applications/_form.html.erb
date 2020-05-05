@@ -3,17 +3,17 @@
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-     <%= f.input :full_name %>
-     <%= f.input :address %>
-     <%= f.input :phone %>
-     <%= f.input :aadhar %>
-     <%= f.input :quaratine_is_over, input_html: {class: 'form-checkbox'} %>
-     <%= f.input :when_quarantine_over %>
-     <%= f.input :date_of_medical_exam %>
-     <%= f.input :disease_remarks %>
-     <%= f.input :route %>
-     <%= f.input :purpose_of_trip %>
-     <%= f.input :total_persons %>
+    <%= f.input :full_name, required: true %>
+    <%= f.input :address, required: true %>
+    <%= f.input :phone, required: true %>
+    <%= f.input :aadhar, required: true %>
+    <%= f.input :quaratine_is_over, collection: [['Yes', true], ['No', false]], as: :radio_buttons, input_html: { class: 'm-2' }, required: true, label: 'Completed quaratine?' %>
+    <%= f.input :when_quarantine_over, as: :date, html5: true %>
+    <%= f.input :date_of_medical_exam, as: :date, html5: true %>
+    <%= f.input :disease_remarks %>
+    <%= f.input :route, required: true %>
+    <%= f.input :purpose_of_trip, required: true %>
+    <%= f.input :total_persons, required: true %>
     <span class="inline-flex rounded-md shadow-sm">
           <%= f.button :submit, 'Create Application', 'data-turbolinks-scroll': false, class: 'mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:border-gray-700 focus:shadow-outline-indigo active:bg-gray-700 transition ease-in-out duration-150' %>
         </span>

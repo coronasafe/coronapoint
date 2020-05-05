@@ -42,94 +42,26 @@
               Address
             </dt>
             <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <ul>
-                <li class="my-2"><span class="font-bold">House:</span> <span><%= @contact.house_name %></span></li>
-                <li class="my-2"><span class="font-bold">Ward: </span><%= @contact.ward %></span></li>
-                <li class="my-2"><span class="font-bold">Panchayat: </span><%= @contact.panchayat.name %></span></li>
-              </ul>
+              <%= @contact.house_name %>
             </dd>
           </div>
           <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
-              Health Report
+              Aaryogya Setu Downloaded
             </dt>
             <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <% if @contact.has_diabetes? %>
-                <li class="my-2"><span class="font-bold">Has diabetes</span></li>
-              <% end %>
-              <% if @contact.has_hyper_tension %>
-                <li class="my-2"><span class="font-bold">Has Hyper Tension</span></li>
-              <% end %>
-              <% if @contact.has_heart_disease %>
-                <li class="my-2"><span class="font-bold">Has Heart Disease</span></li>
-              <% end %>
-              <% if @contact.has_kidney_disease %>
-                <li class="my-2"><span class="font-bold">Has a Kidney Disease</span></li>
-              <% end %>
-              <% if @contact.primary_contact %>
-                <li class="my-2"><span class="font-bold">Was a primary contact</span></li>
-              <% end %>
-              <% if @contact.has_tested %>
-                <li class="my-2"><span class="font-bold">Has tested</span></li>
-              <% end %>
-              <% if @contact.was_positive %>
-                <li class="my-2"><span class="font-bold">Was positive</span></li>
-              <% end %>
+              <div class="font-bold"><%= @contact.aarogya_setu_downloaded ? "Downloaded" : "Not Downloaded" %></div>
             </dd>
           </div>
           <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
             <dt class="text-sm leading-5 font-medium text-gray-500">
-              Symptoms
+              Doctor Certificate
             </dt>
             <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <div class="font-bold"><%= @contact.symptoms %></div>
+              <div class="font-bold"><%= @contact.doctor_certificate ? "Certificate Approved" : "Certificate Not Approved" %></div>
+              <div class="font-bold"><%= @contact.doctor_name %></div>
             </dd>
           </div>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Recent medical History
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <div class="font-bold"><%= @contact.recent_history %></div>
-            </dd>
-          </div>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Test type
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <div class="font-bold"><%= @contact.test_type %></div>
-            </dd>
-          </div>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Aaryogya Setu Downloaded
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  <div class="font-bold"><%= @contact.aarogya_setu_downloaded ? "Downloaded" : "Not Downloaded" %></div>
-              </dd>
-          </div>
-          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Doctor Certificate
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                  <div class="font-bold"><%= @contact.doctor_certificate ? "Certificate Approved" : "Certificate Not Approved" %></div>
-                  <div class="font-bold"><%= @contact.doctor_name %></div>
-              </dd>
-          </div>
-      </div>
-      <div class="md:w-1/2 mt-4 flex items-center mx-auto p-4 md:p-10">
-        <%
-          qrcode = RQRCode::QRCode.new("#{summary_application_contact_url(@contact.application, @contact)}")
-          # With default options specified explicitly
-          svg = qrcode.as_svg(offset: 0, color: '000',
-            shape_rendering: 'crispEdges',
-            module_size: 6,
-            standalone: true)
-        %>
-
-        <%= raw svg %>
       </div>
     </div>
   </div>

@@ -1,0 +1,91 @@
+<div class="max-w-3xl mx-auto">
+  <div class="bg-white shadow overflow-hidden  rounded-lg mt-4 px-2 py-4">
+    <div class="text-xl font-black text-center">
+      <%= @application.full_name %>
+    </div>
+    <div class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2 text-center">
+      Travellers: <%= @application.contacts.count %>
+    </div>
+  </div>
+
+
+  <div class="mt-4 font-semibold text-xl">
+    Personal Details
+  </div>
+  <div class="bg-white shadow overflow-hidden rounded-lg mt-4">
+    <%= render 'details', application: @application %>
+  </div>
+  <div class="mt-4 font-semibold text-xl">
+    Travellers
+  </div>
+  <div class="bg-white shadow overflow-hidden rounded-lg mt-4">
+    <% @application.contacts.map do |c| %>
+      <div class="border-t border-gray-200">
+        <%= link_to application_contact_path(@application, c), class: "block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out" do %>
+          <div class="flex items-center px-4 py-4 sm:px-6">
+            <div class="min-w-0 flex-1 flex items-center">
+              <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                <div>
+                  <div class="text-sm leading-5 font-medium text-indigo-600 truncate"><%= c.name.titleize %></div>
+                  <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                    <span class="truncate"><%= c.phone %></span>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <div class="text-sm leading-5 text-gray-900">
+                      <%= c.gender.to_s.capitalize() %>, <%= c.age %> years old
+                    </div>
+                    <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+                      <div>
+                        Aarogya Setu
+                        <% if c.aarogya_setu_downloaded %>
+                          <i class="fas fa-check-circle text-green-500 mx-1"></i>
+                        <% else %>
+                          <i class="fas fa-times-circle text-red-500 mr-1"></i>
+                        <% end %>
+                      </div>
+                      <div>
+                        Doctor certificate
+                        <% if c.doctor_certificate %>
+                          <i class="fas fa-check-circle text-green-500 mx-1"></i>
+                        <% else %>
+                          <i class="fas fa-times-circle text-red-500 mr-1"></i>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <div class="mt-4 font-semibold text-xl">
+      Vehicle Details
+    </div>
+    <% if @application.vehicles.blank? %>
+      <div class="bg-purple-200 border-purple-400 text-purple-800 font-bold rounded-lg border mt-4 shadow p-4 ">
+        Public Transport
+      </div>
+    <% end %>
+    <% @application.vehicles.each do |v| %>
+      <div class="bg-white rounded-lg border mt-4 shadow p-4">
+        <div class="text-lg">
+          Vehicle number:
+          <span class="text-md font-semibold">
+          <%= v.number_plate %>
+          </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
