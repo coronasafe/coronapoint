@@ -25,20 +25,16 @@ class ContactsController < ApplicationController
   def create
     @contact = @application.contacts.create(contact_params)
     @contact.user = current_user
-    existing_contact = Contact.find_by(phone: contact_params["phone"].squish)
-    if existing_contact
-      redirect_to application_contact_url(@application, existing_contact)
-    else
-      respond_to do |format|
-        if @contact.save!
-          format.html { redirect_to application_contact_path(@application, @contact), notice: "Contact was successfully created." }
-          format.json { render :show, status: :created, location: @contact }
-        else
-          format.html { render :new }
-          format.json { render json: @contact.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @contact.save!
+        format.html { redirect_to application_path(@application), notice: "Contact was successfully created." }
+        format.json { render :show, status: :created, location: @contact }
+      else
+        format.html { render :new }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   def update

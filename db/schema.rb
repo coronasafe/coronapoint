@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_070155) do
+ActiveRecord::Schema.define(version: 2020_05_05_203335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 2020_05_02_070155) do
     t.integer "number_of_vehicles"
     t.string "private_vehicle_details"
     t.integer "total_persons"
+    t.integer "age"
+    t.string "police_station"
+    t.string "state"
+    t.string "district"
+    t.string "village"
+    t.string "status"
     t.index ["port_id"], name: "index_applications_on_port_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
@@ -89,7 +95,6 @@ ActiveRecord::Schema.define(version: 2020_05_02_070155) do
     t.string "doctor_name"
     t.index ["application_id"], name: "index_contacts_on_application_id"
     t.index ["panchayat_id"], name: "index_contacts_on_panchayat_id"
-    t.index ["phone"], name: "index_contacts_on_phone", unique: true
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
@@ -167,6 +172,9 @@ ActiveRecord::Schema.define(version: 2020_05_02_070155) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "seats"
+    t.string "name_of_driver"
+    t.string "phone"
+    t.string "mode"
     t.index ["application_id"], name: "index_vehicles_on_application_id"
   end
 

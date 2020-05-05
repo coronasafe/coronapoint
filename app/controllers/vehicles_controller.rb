@@ -35,6 +35,6 @@ class VehiclesController < ApplicationController
   private
 
   def vehicle_params
-    params.require(:vehicle).permit(:number_plate, :seats)
+    params.require(:vehicle).permit(:number_plate, :seats, :name_of_driver, :phone, :mode)
   end
 end

@@ -71,6 +71,11 @@ class ApplicationsController < ApplicationController
       :number_of_vehicles,
       :private_vehicle_details,
       :total_persons,
+      :state,
+      :district,
+      :village,
+      :age,
+      :police_station
     )
   end
 end
